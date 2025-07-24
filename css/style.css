@@ -268,7 +268,7 @@ appearance: none
   border: 1px solid #008ECC;
   border-radius: 50px;
   width: 30rem;
-  padding: 8px;
+  /*padding: 8px;*/
   max-height: 55px;
   font-size: 30px;
   color: white;
