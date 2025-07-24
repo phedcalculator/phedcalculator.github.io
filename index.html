@@ -1,0 +1,459 @@
+<!doctype html>
+<html>
+<head>
+<!--<meta name="viewport" content="width=device-width, initial-scale=1.0">-->
+<meta charset="utf-8">
+<title>PHED CALCULATOR APP</title>
+<link rel="icon" type="image/png" href="favicon-32x32.png" sizes="32x32" />
+<link rel="icon" type="image/png" href="favicon-16x16.png" sizes="16x16" />
+
+<link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet" type="text/css">
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x" crossorigin="anonymous">
+<link rel="stylesheet" href="css/style.css">
+<style>
+#result { margin-top: 20px; font-weight: bold; background: #f9f9f9; padding: 10px; border-radius: 5px; }
+    table { width: 100%; border-collapse: collapse; margin-top: 10px; }
+    th, td { border: 1px solid #ccc; padding: 8px; text-align: center; }
+    th { background-color: #eee; }	
+	
+  #result {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.8s ease-out, opacity 0.5s ease-out;
+  opacity: 0;
+}
+
+#result.show {
+  max-height: 500px; /* big enough to contain result */
+  opacity: 1;
+}
+.placeholder-red {
+  color: red;
+}
+	
+	.ref {
+    position: absolute;
+    bottom: 0px;
+    border: 1px solid white;
+    z-index: 100000;
+    background-color: #105187;
+    margin-top: 20px;
+    margin-right: 20px;
+  }
+
+  .ref a {
+    display: inline-block;
+    padding: 4px 8px;
+    color: #ffffff;
+    text-decoration: none;
+    border-radius: 4px;
+    font-family: Arial, sans-serif;
+    font-size: 30px;
+    transition: color 0.3s, font-size 0.3s;
+  }
+
+  .ref:hover a {
+    color: yellow;
+    font-size: 35px;
+	  
+	  
+  }
+	
+	@media screen and (min-width: 1024px) {
+		
+		.ref {
+    position: absolute;
+    bottom: 0px;
+    border: 1px solid white;
+    z-index: 100000;
+    background-color: #105187;
+    margin-top: 20px;
+    margin-right: 20px;
+  }
+
+  .ref a {
+    display: inline-block;
+    padding: 4px 8px;
+    color: #ffffff;
+    text-decoration: none;
+    border-radius: 4px;
+    font-family: Arial, sans-serif;
+    font-size: 14px;
+    transition: color 0.3s, font-size 0.3s;
+  }
+
+  .ref:hover a {
+    color: yellow;
+    font-size: 16px;
+	  
+	  
+  }
+	}
+</style>
+</head>
+
+
+<body>
+
+<!--	<div id="loader"></div>-->
+<div class="container">
+  <div class="logo">
+    <div class="logo-txt" style="position: relative; top: 0px; text-align: center;"> <img class="phed"  src="PHED logo.png" alt="PHED">
+      <h2 style="margin-top: -18px;">CALCULATOR</h2>
+    </div>
+    <div class="cont-wrapper" >
+      <div class="billing-button-container clearfix" style="" >
+        <div>
+          <button class="btn billing__button active"> Billing(Amp) </button>
+        </div>
+        <div>
+          <button class="btn billingKW__button"> Billing (Watt) </button>
+        </div>
+        <div>
+          <button class="btn billingKwh__button"> Billing (kWh) </button>
+        </div>
+      </div>
+      <div class="billing-button-container clearfix" >
+        <div>
+          <button class="btn lor__button"> LOR (RPD) </button>
+        </div>
+        <div>
+          <button class="btn fuse__button"> Debt Promo </button>
+        </div>
+        <div>
+          <button class="btn DTRloading__button"> DTR Loading </button>
+        </div>
+      </div>
+      
+      <!--		Calccontainer-->
+      
+     
+        <div class="billing__form" style="display: block;">
+          <form class="form-container" >
+            <div class="info">
+              <p>Calculate customer's bill using captured Load (Amps)</p>
+            </div>
+            <div class="page"  > 
+              
+              <!-- tabs -->
+              <div class="pcss3t pcss3t-effect-scale pcss3t-theme-1" style="width: 100%">
+                <input type="radio" name="pcss3t" checked  id="tab1" class="tab-content-first  btnReset8">
+                <label for="tab1">Single Phase</label>
+                <input type="radio" name="pcss3t" id="tab2" class="tab-content-2 btnResetSingle">
+                <label for="tab2">Three Phase</label>
+                <ul style="">
+                  <li class="tab-content tab-content-first typography">
+                    <div class="form-inline" style=" text-align: center;">
+                      <div class="form-group singleA" >
+                        <label for="singlePhaseAmps">&nbsp;</label>
+                        <input type="number" placeholder="Single Phase Load (Amp*)" class="form-control loadA clearSingle" id="singlePhaseAmps" style="">
+                      </div>
+                    </div>
+                  </li>
+
+                  <li class="tab-content tab-content-2 typography">
+
+                    <div class="form-inline" style=" text-align: center; ">
+                      <div class="form-group w-5 phaseAmp ">
+                        <label for="rAmp">Red Phase:</label>
+                        <input type="number" placeholder="R" class="clear3phase form-control  formInline2" id="rAmp" >
+                      </div>
+                      <div class="form-group phaseAmp">
+                        <label for="yAmp">Yellow Phase:</label>
+                        <input type="number" placeholder="Y" class="clear3phase form-control formInline2" id="yAmp" >
+                      </div>
+                      <div class="form-group phaseAmp">
+                        <label for="bAmp">Blue Phase:</label>
+                        <input type="number" placeholder="B" class="clear3phase form-control formInline2" id="bAmp" >
+                      </div>
+                      <div class="form-group phaseAmp">
+                        <label for="nAmp">Neutral:</label>
+                        <input type="number" placeholder="N" class="clear3phase form-control formInline2" id="nAmp">
+                      </div>
+                    </div>
+                  </li>
+                </ul>
+              </div>
+              <!--/ tabs --> 
+            </div>
+            <select id="selectBand" class="form-control input select-input drop-down-caret">
+              <option value="" disabled selected="selected">Select a Band *</option>
+              <option value="600">Band A-Non MD</option>
+              <option value="600">Band A-MD1</option>
+              <option value="600">Band A-MD2</option>
+              <option value="480">Band B-Non MD</option>
+              <option value="480">Band B-MD1</option>
+              <option value="480">Band B-MD2</option>
+              <option value="360">Band C-Non MD</option>
+              <option value="360">Band C-MD1</option>
+              <option value="360">Band C-MD2</option>
+              <option value="240">Band D-Non MD</option>
+              <option value="240">Band D-MD1</option>
+              <option value="240">Band D-MD2</option>
+              <option value="120">Band E-Non MD</option>
+              <option value="120">Band E-MD1</option>
+              <option value="120">Band E-MD2</option>
+            </select>
+            
+            <!--	                        PHASE-->
+            
+            <button id="btnStart" style="margin-top: 8px" class="btn btn2 btn-lg btn-primary btn-block ">Calculate</button>
+          </form>
+          <div class="output">
+            <h1 class="b-display singleClear"><span id="outputKilowattHr"></span> </h1>
+            <div id="outputCost" class="form-control bill"></div>
+            <button id="btnRefresh" class=" btn btn2 btn-lg btn-danger btn-block">Reset</button>
+          </div>
+          <div class="tipsCont">
+            <button class="toggleButton" >Helpful Tips!</button>
+            <div class="displayText">
+              <p>Use a <a href="https://www.hioki.com/themes/hioki/images/global/learning/how-to/u-clamp-meters-img-04.jpg" target="_blank">Clamp meter </a> to determine the electrical load from your service drop. Enter the load, measured in amperes (A), into the calculator for an accurate calculation. If you’re dealing with a 3-phase supply, remember to measure the load on all three phases, and click on the 3Phase tab for your calculation. </p>
+            </div>
+          </div>
+        </div>
+        
+        <!--	  BILLING W-->
+        
+        <div class="billingKW__form" style="display: none;">
+          <div id="billingKW-form-wrapper">
+            <form class="form-container">
+              <div class="info">
+                <p> Calculate customer's bill using Assessed Load (Watt) </p>
+              </div>
+              <label for="inputW" class="sr-only">Total Load(W)</label>
+              <input type="number" id="inputW" class="form-control load" placeholder="Total Load (Watts) *" required>
+              <select id="selectBandW" class="form-control input select-input drop-down-caret">
+                <option value="" disabled selected="selected">Select a Band *</option>
+                <option value="600">Band A-Non MD</option>
+                <option value="600">Band A-MD1</option>
+                <option value="600">Band A-MD2</option>
+                <option value="480">Band B-Non MD</option>
+                <option value="480">Band B-MD1</option>
+                <option value="480">Band B-MD2</option>
+                <option value="360">Band C-Non MD</option>
+                <option value="360">Band C-MD1</option>
+                <option value="360">Band C-MD2</option>
+                <option value="240">Band D-Non MD</option>
+                <option value="240">Band D-MD1</option>
+                <option value="240">Band D-MD2</option>
+                <option value="120">Band E-Non MD</option>
+                <option value="120">Band E-MD1</option>
+                <option value="120">Band E-MD2</option>
+              </select>
+              <button id="btnStartW" style="margin-top: 12px" class="btn btn2 btn-lg btn-primary btn-block">Calculate</button>
+            </form>
+            <div class="output">
+              <h1 class="b-display">Your Monthly Bill is:</h1>
+              <div id="outputCostW" class="form-control bill"></div>
+              <button id="btnRefreshW" class="btn btn2 btn-lg btn-danger btn-block">Reset</button>
+            </div>
+          </div>
+          <div class="tipsCont" >
+            <button class="toggleButton" >Helpful Tips!</button>
+            <div class="displayText" >
+              <p>Add up the power ratings (in Watts) of all your appliances to perform this calculation. For example, you might have a 300W electric iron, a 200W TV, and a 2000W air conditioner, totalling 2500 watts. If any appliance is rated in kilowatts (kW), convert it to watts by multiplying the kW value by 1000. This will give you the equivalent value in watts. </p>
+            </div>
+          </div>
+        </div>
+        
+        <!--	  LOSS OF REVENUE-->
+        
+        <div class="lor__form" style="display: none;">
+          <div id="lor-form-wrapper">
+            <form class="form-container">
+              <div class="info">
+                <p> Calculate Loss of Revenue for Energy Theft </p>
+              </div>
+              <label for="inputAmps1" class="sr-only">Total Load (Amp)</label>
+              <input type="number" id="inputAmps1" class="form-control load" placeholder="Load (Amps) *" required>
+              <label for="inputHrs" class="sr-only">Duration</label>
+              <input type="number" id="inputHrs" class="form-control load" placeholder="Duration (Number of Months) *" required>
+              <select id="selectBand1" class="form-control input select-input drop-down-caret">
+                <!--          <option disabled selected>Customer's Band...</option>       -->
+                <option value="" disabled selected="selected">Select a Band *</option>
+                <option value="600">Band A-Non MD</option>
+                <option value="600">Band A-MD1</option>
+                <option value="600">Band A-MD2</option>
+                <option value="480">Band B-Non MD</option>
+                <option value="480">Band B-MD1</option>
+                <option value="480">Band B-MD2</option>
+                <option value="360">Band C-Non MD</option>
+                <option value="360">Band C-MD1</option>
+                <option value="360">Band C-MD2</option>
+                <option value="240">Band D-Non MD</option>
+                <option value="240">Band D-MD1</option>
+                <option value="240">Band D-MD2</option>
+                <option value="120">Band E-Non MD</option>
+                <option value="120">Band E-MD1</option>
+                <option value="120">Band E-MD2</option>
+              </select>
+              <button id="btnStart1" style="margin-top: 12px" class="btn btn2 btn-lg btn-primary btn-block">Calculate</button>
+            </form>
+            <div class="output">
+              <h1 class="b-display">Your LOR is:</h1>
+              <div id="outputCost1" class="form-control bill"></div>
+              <button id="btnRefresh1" class="btn btn2 btn-lg btn-danger btn-block">Reset</button>
+            </div>
+          </div>
+        </div>
+        
+        <!--	  LOSS OF REVENUE HAULAGE-->
+        
+        <div class="billingKwh__form" style="display: none;">
+          <div id="billingKwh-form-wrapper">
+            <form class="form-container" required>
+              <div class="info">
+                <p>Calculate customer's bill using consumption (kWh)</p>
+              </div>
+              <label for="inputAmps2" class="sr-only">Total Load(Amp)</label>
+              <input type="number" id="inputMW" class="form-control load" placeholder="Consumption (kWh) *" required>
+              <select id="selectBand2" class="form-control input select-input drop-down-caret">
+                <!--          <option disabled selected>Customer's Band...</option>       -->
+                <option value="" disabled selected="selected">Select Band *</option>
+                <option value="600">Band A-Non MD</option>
+                <option value="600">Band A-MD1</option>
+                <option value="600">Band A-MD2</option>
+                <option value="480">Band B-Non MD</option>
+                <option value="480">Band B-MD1</option>
+                <option value="480">Band B-MD2</option>
+                <option value="360">Band C-Non MD</option>
+                <option value="360">Band C-MD1</option>
+                <option value="360">Band C-MD2</option>
+                <option value="240">Band D-Non MD</option>
+                <option value="240">Band D-MD1</option>
+                <option value="240">Band D-MD2</option>
+                <option value="120">Band E-Non MD</option>
+                <option value="120">Band E-MD1</option>
+                <option value="120">Band E-MD2</option>
+              </select>
+              <button  id="btnStart2" style="margin-top: 12px" class="btn btn2 btn-lg btn-primary btn-block">Calculate</button>
+            </form>
+            <div class="output">
+              <h1 class="b-display">Your Bill is:</h1>
+              <div id="outputCost2" class="form-control bill"></div>
+              <button id="btnRefresh2" class="btn btn2 btn-lg btn-danger btn-block">Reset</button>
+            </div>
+          </div>
+			
+			
+        </div>
+        
+        <!--	  BILL DISCOUNT-->
+        
+        <div class="fuse__form" style="display: none; margin-bottom:50px">
+        <div id="fuse-form-wrapper">
+            <div class="form-container">
+            <div class="info">
+                <p> Calculate Discount for Debt Recovery Promo </p>
+              </div>
+            <select class="form-control placeholder-red input select-input drop-down-caret" id="customerType" name="customerType" >
+                <option value="" disabled selected="selected">Select Customer Type *</option>
+                <option value="regular">Regular Customer</option>
+                <option value="bulk">Unmetered MD/CBB</option>
+              </select>
+            <select class="form-control input select-input drop-down-caret" id="debtYear">
+                <option value="" disabled selected="selected">Select Debt Year *</option>
+                <option value="2025">2025</option>
+                <option value="2024">2024</option>
+                <option value="before2024">Before 2024</option>
+              </select>
+            <select class="form-control input select-input drop-down-caret" id="paymentOption">
+                <option value="" disabled selected="selected">Select Payment Option *</option>
+                <option value="oneOff">One-Off Payment</option>
+                <option value="installment">3-Month Installment</option>
+              </select>
+
+            <input class="form-control placeholder-red load" type="number" id="debtAmount" placeholder="Enter Debt Amount (₦)" />
+            <div class="btnWrapper mt-2">
+                <button class="btn btn2 btn-lg btn-primary btn-block" style="float:left;  width:48%" onclick="calculateResult()">Calculate</button>
+                <button id="btnRefreshDp" class="btnResetDp btn btn2 btn-lg  btn-block btn-danger" style="float:right; margin: auto; width:48%" >Reset</button>
+              </div>
+            <div style="width: 70%; text-align: center;" id="result"></div>
+          </div>
+          </div>
+      </div>
+
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+        
+        <!--	  TRANSFORMER LOADING-->
+        
+        <div class=" DTRloading__form" style="display: none;">
+          <div class="form-container">
+            <div class="info">
+              <p>Calculate the Percentage Loading of a Transformer</p>
+            </div>
+            <form class="form-inline" style="width: 100%; text-align: center">
+              <div class="form-group w-5 phase ">
+                <label for="red">Red Phase:</label>
+                <input type="number" placeholder="R" class="form-control  formInline" id="red">
+              </div>
+              <div class="form-group phase">
+                <label for="yellow">Yellow Phase:</label>
+                <input type="number" placeholder="Y" class="form-control formInline" id="yellow">
+              </div>
+              <div class="form-group phase">
+                <label for="blue">Blue Phase:</label>
+                <input type="number" placeholder="B" class="form-control formInline" id="blue" >
+              </div>
+              <div class="form-group phase">
+                <label for="neutral">Neutral:</label>
+                <input type="number" placeholder="N" class="form-control formInline" id="neutral">
+              </div>
+            </form>
+            <label for="inputKVA" class="mb-0 kvaLabel">DTR CAPACITY(KVA) *</label>
+            <input type="number" style="text-align: center" id="inputKVA" class="form-control load" placeholder="Enter" required>
+            <button id="btnStart3" style="margin-top: 8px" class="btn btn2 btn-lg btn-primary btn-block ">Calculate</button>
+          </div>
+          <div class="output">
+            <h1 class="b-display">The Percentage Loading of this DTR is:</h1>
+            <div id="outputLoading" class="clear form-control bill"></div>
+            <h1 class="b-display">The Percentage Imbalance of this DTR is:</h1>
+            <div id="outputImbalance" class="clear form-control bill"></div>
+            <div id="balance" class="status clear"></div>
+			
+	    
+            <button id="btnRefresh3" class="btnReset btn btn2 btn-lg btn-primary btn-block btn-danger" >Reset</button>
+	  
+			  <div id="errorMessage"></div>
+          </div>
+				
+		 	
+        </div>
+      </div>
+	<div class="ref">
+  <a href="https://phednetwork.github.io">
+    Explore PHED Network
+  </a>
+</div>
+    </div>
+
+  </div>
+	
+	 
+  <div class="ticker"> 
+    <!--  <img src="PHED-logo-transparent.png" width="50px" alt="">-->
+    <div id="tariffScroll" ></div>
+  </div>
+
+<script src="https://code.jquery.com/jquery-2.2.4.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-gtEjrD/SeCtmISkJkNUaaKMoLD0//ElJ19smozuHV6z3Iehds+3Ulb9Bn9Plx0x4" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+<script type="text/javascript" src="js/myScript.js"></script>
+
+</body>
+
+</html>
