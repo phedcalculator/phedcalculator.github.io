@@ -212,11 +212,13 @@ select {
 .btn {
   width: 70vw;
   height: 12rem;
-  box-shadow: 2px 3px 1px rgba(16, 81, 135, .2);
+  box-shadow: 2px 3px 1px rgba(16, 81, 135, 0.2);
   display: flex;
   justify-content: center;
   align-items: center;
-  text-align: center
+  text-align: center;
+  white-space: normal; /* Allows wrapping inside button */
+  line-height: 1.2;    /* Improves vertical centering */
 }
 .drop-down-caret {
   height: 100px;
