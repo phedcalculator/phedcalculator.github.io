@@ -216,6 +216,7 @@ select {
   display: flex;
   justify-content: center;
   align-items: center;
+  text-align: center
 }
 .drop-down-caret {
   height: 100px;
@@ -265,6 +266,8 @@ select {
   max-height: 45px;
   font-size: 22px;
   color: white;
+  text-align: center;
+
 }
 .billing-button-container {
   width: 100%;
