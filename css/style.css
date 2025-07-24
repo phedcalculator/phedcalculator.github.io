@@ -202,11 +202,12 @@ div .phed {
 }
 select {
   font-size: 35px;
+  text-align: center;
   /*  padding: 30px;*/
 }
 .select-input {
   font-size: 35px !important;
-  text-align: center /*  padding: 30px;*/
+  text-align: center 
 }
 .btn {
   width: 70vw;
