@@ -1,0 +1,202 @@
+@charset "utf-8";
+/* CSS Document */
+body {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  /*	height: 100vh;*/
+  margin: 0;
+  background-color: #534484;
+}
+/*
+.label-left{
+	text-align: left!important;
+}
+*/
+h5 {
+  color: gray;
+  word-wrap: break-word;
+  font-size: 14px;
+}
+.gpsInstruction {
+  color: green;
+  font-size: 12px
+}
+#errorMessage {
+  /*	display: flex;*/
+  position: relative;
+  bottom: 0px;
+  margin-top: 50px;
+  color: red;
+  font-size: 18px; /*  margin-top: 10px*/
+  /*	width: 350px;*/
+  height: 60px;
+  /*	background-color: burlywood;*/
+  word-wrap: break-word
+}
+.logoCont {
+  margin-top: 10px;
+  text-align: center;
+}
+.thumbnail {
+  width: 100px;
+  height: 60px;
+  margin-right: 4px;
+}
+.uploadPreview {
+  max-height: 80px;
+/*  max-width: 320px;*/
+/*  max-width: 100vw;*/
+  display: flex;
+  overflow: scroll;
+}
+
+.thumbnail-container {
+            display: flex;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+     
+        .remove-button {
+            background-color: #ff0000;
+/*            color: #ffffff;*/
+            border: none;
+           margin-right: 10px;
+			width: 20px;
+			height: auto;
+            cursor: pointer;
+        }
+
+.green-text {
+  color: green
+}
+.blue-text {
+  color: blue
+}
+.purple-text {
+  color: rebeccapurple
+}
+input, select {
+  /*			margin-left: 20px;*/
+  margin-bottom: 5px;
+  font-size: 18px
+}
+button {
+  background-color: #008ECC;
+  outline: none !important;
+  border: none !important;
+  box-shadow: 3px 2px 8px rgba(0, 0, 0, .2);
+}
+.wrapper {
+  /* Add any other styling you need for the parent container */
+  /*	width: 90%;*/
+  max-width: 800px;
+  padding: 20px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.8);
+  background: #F0F1D5;
+  padding-bottom: 50px;
+	overflow: hidden
+}
+::placeholder {
+  font-size: 18px
+}
+.select-input {
+  font-size: 18px;
+}
+.form-container .btn-primary, .output .btn-primary .toggleButton {
+  background-color: #008ECC;
+  outline: none !important;
+  border: none !important;
+  font-size: 20px;
+  padding: 0px 10px; /*	border-radius: 14px*/
+}
+.form-container .btn-primary:focus, .output .btn-primary:focus {
+  outline: none !important;
+  border: none !important
+}
+.form-control {
+  font-size: 18px
+}
+.capture {
+  position: relative;
+  background-color: #04AA6D;
+  border: none;
+
+  color: #FFFFFF;
+
+  width: 200px;
+  text-align: center;
+  -webkit-transition-duration: 0.4s; /* Safari */
+  transition-duration: 0.4s;
+  text-decoration: none;
+  overflow: hidden;
+  cursor: pointer;
+	font-size: 14px; 
+	padding:5px 10px
+}
+.capture:after {
+  content: "";
+  background: #90EE90;
+  display: block;
+  position: absolute;
+  padding-top: 300%;
+  padding-left: 350%;
+  margin-left: -20px !important;
+  margin-top: -120%;
+  opacity: 0;
+  transition: all 0.8s
+}
+.capture:active:after {
+  padding: 0;
+  margin: 0;
+  opacity: 1;
+  transition: 0s
+}
+#result {
+  box-shadow: 2px 2px 8px rgba(0, 0, 0, .2);
+  margin-top: 10px;
+  margin-bottom: 10px;
+  padding: 10px;
+  line-height: 10px;
+  font-size: 20px;
+	font-family: Segoe, "Segoe UI", "DejaVu Sans", "Trebuchet MS", Verdana, "sans-serif";  
+  color: black;
+  background-color: white
+}
+.gpsCont {
+  text-align: left;
+  margin-bottom: 10px
+}
+fieldset {
+  border: 2px solid grey;
+  margin-bottom: 15px;
+	overflow: hidden;
+}
+ /* Custom CSS for small screens */
+       
+@media screen and (min-width: 1024px) {
+  .wrapper {
+    /* Add any other styling you need for the parent container */
+    width: 50%;
+  }
+  h5 {
+    font-size: 20px;
+  }
+  .gpsInstruction {
+    color: green;
+    font-size: 18px
+  }
+	.uploadPreview {
+ 
+/*  max-width: 100%;*/
+
+}
+}
+
+ @media (max-width: 800px) {
+            .label-left {
+                float: left!important;
+            }
+        }
