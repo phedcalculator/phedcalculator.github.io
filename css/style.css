@@ -407,9 +407,7 @@ input, label {
   -webkit-transform: scale(1, 1);
   -webkit-transform: rotate(0deg);
 }
-/*----------------------------------------------------------------------------*/
-/*                                 EXTENSIONS                                 */
-/*----------------------------------------------------------------------------*/
+
 .pcss3t-height-auto > .tab-content-first:checked ~ ul .tab-content-first, .pcss3t-height-auto > .tab-content-2:checked ~ ul .tab-content-2 {
   display: block;
 }
@@ -505,12 +503,10 @@ input, label {
 }
 .pcss3t-theme-1 > label {
   margin: 0px 40px;
-  /*	width: 40%;*/
   padding: 10px 0px;
-  font-size: 22px;
+  font-size: 30px;
   width: 30vw;
   height: 60px;
-  /*	height: auto;*/
   border-radius: 5px;
   background: #008ECC;
   color: #fff;
@@ -519,6 +515,7 @@ input, label {
 }
 .pcss3t .singleA input {
   width: 70vw;
+  
   height: 80px;
   margin-top: -7px;
   overflow: hidden;
