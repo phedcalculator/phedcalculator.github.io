@@ -233,7 +233,7 @@ refreshW.addEventListener("click", emptyBillWattInput);
 //       LOR (ENERGY THEFT)
 
 const loadAmps1 = document.querySelector("#inputAmps1");
-const billHrs = document.querySelector("#inputHrs");
+const duration = document.querySelector("#inputHrs");
 const Band1 = document.querySelector("#selectBand1");
 const output1 = document.querySelector("#outputCost1");
 const start1 = document.getElementById("btnStart1");
@@ -246,7 +246,7 @@ function calcLorRPD(e) {
   let selectedBand = Band1.options[Band1.selectedIndex].text;
   
   // Calculate the total cost
-  var total = Number(loadAmps1.value) * Number(billHrs.value) * Number(Band1.value) * tariffs[selectedBand] * 0.240 * 0.6 * 0.85 * 1.075;
+  var total = Number(loadAmps1.value) * Number(duration.value) * Number(Band1.value) * tariffs[selectedBand] * 0.240 * 0.6 * 0.85 * 1.075;
   
   output1.innerHTML = "\u20a6" + total.toLocaleString(undefined,{maximumFractionDigits:2});
 }
@@ -255,7 +255,7 @@ function emptyLorRPDInput() {
    
    output1.innerHTML = "";
    loadAmps1.value = "";
-   billHrs.value = "";
+   duration.value = "";
    Band1.value = "";
    //  Phase1.value = "";
 }
