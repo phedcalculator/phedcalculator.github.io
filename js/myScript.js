@@ -484,7 +484,7 @@ const currentDate = new Date();
 const formattedDate = formatDate(currentDate); // "21st May, 2024"
 
 
-const news = `&nbsp Electricity Tariff as at <span class="brown-text">${formattedDate}</span> &nbsp | &nbsp
+const news = `<span class="ticker-text">&nbsp Electricity Tariff as at <span class="brown-text">${formattedDate}</span> &nbsp | &nbsp
   Band A-Non MD <span class="green-text">₦${tariffs['Band A-Non MD']}/kWh</span> &nbsp &nbsp
   Band A-MD1 <span class="green-text">₦${tariffs['Band A-MD1']}/kWh</span> &nbsp &nbsp
   Band A-MD2 <span class="green-text">₦${tariffs['Band A-MD2']}/kWh</span> &nbsp &nbsp
@@ -500,7 +500,7 @@ const news = `&nbsp Electricity Tariff as at <span class="brown-text">${formatte
   Band E-Non MD <span class="green-text">₦${tariffs['Band E-Non MD']}/kWh</span> &nbsp &nbsp | &nbsp 
   Band E-MD1 <span class="green-text">₦${tariffs['Band E-MD1']}/kWh</span> &nbsp &nbsp | &nbsp 
   Band E-MD2 <span class="green-text">₦${tariffs['Band E-MD2']}/kWh</span> &nbsp &nbsp | &nbsp 
-  Designed by: Obot Akpan &nbsp`;
+  Designed by: Obot Akpan &nbsp</span>`;
 
 // Select the container div by its class
 const container = document.querySelector('.logo');
@@ -595,7 +595,10 @@ function calculateResult() {
   let discountRate = 0;
   let staffIncentiveRate = 0;
 
-  if (yearValue === "2025") {
+  if (yearValue === "two-more") {
+    staffIncentiveRate = 0.025;
+    discountRate = paymentOption === "oneOff" ? 0.12 : 0.07;
+  } else if (yearValue === "2025") {
     staffIncentiveRate = 0.025;
     discountRate = paymentOption === "oneOff" ? 0.10 : 0.05;
   } else if (yearValue === "2024") {
@@ -605,6 +608,8 @@ function calculateResult() {
     staffIncentiveRate = 0.10;
     discountRate = paymentOption === "oneOff" ? 0.25 : 0.20;
   }
+	
+	
 
   const discountAmount = amount * discountRate;
   const customerPays = amount - discountAmount;
