@@ -595,7 +595,7 @@ function calculateResult() {
   let discountRate = 0;
   let staffIncentiveRate = 0;
 
-  if (yearValue === "two-more") {
+  if (yearValue === "multi-year") {
     staffIncentiveRate = 0.025;
     discountRate = paymentOption === "oneOff" ? 0.12 : 0.07;
   } else if (yearValue === "2025") {
