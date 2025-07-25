@@ -180,10 +180,6 @@ function calculate(e) {
   output.innerHTML = "\u20a6" + totalCost.toLocaleString(undefined,{maximumFractionDigits:2});
 }
 
-
-
-
-
 function emptyInput() {
    output.innerHTML = "";
    outputkWh.innerHTML = "";
@@ -415,13 +411,11 @@ function extractValues() {
     if (isNaN(red) || isNaN(yellow) || isNaN(blue) || isNaN(neutral) || isNaN(capacity)) {
         const errorMessageDiv = document.getElementById("errorMessage");
         errorMessageDiv.textContent = "Please fill in all the required values.";
-
-        // Hide the error message after 5 seconds
         setTimeout(() => {
             errorMessageDiv.textContent = "";
-        }, 5000); // 5000 milliseconds = 5 seconds
+        }, 5000); 
 
-        return; // Stop execution
+        return; 
     }
 
     // Calculate loading percentage
@@ -471,7 +465,6 @@ function formatDate(date) {
   const month = date.toLocaleString('en-NG', { month: 'long' });
   const year = date.getFullYear();
 
-  // Function to add the ordinal suffix to the day
   function getOrdinalSuffix(day) {
     if (day > 3 && day < 21) return 'th';
     switch (day % 10) {
@@ -510,8 +503,8 @@ const news = `&nbsp Electricity Tariff as at <span class="brown-text">${formatte
 
 // Select the container div by its class
 const container = document.querySelector('.logo');
-container.style.overflow = 'hidden'; // Ensure overflow content is not visible
-container.style.position = 'relative'; // Needed for absolute positioning of children
+container.style.overflow = 'hidden'; 
+container.style.position = 'relative'; 
 
 // Create a ticker container with a new unique ID
 const tickerContainer = document.createElement('div');
@@ -528,13 +521,12 @@ tickerContainer.innerHTML = news;
 container.appendChild(tickerContainer);
 
 // Animate the ticker
-let position = container.offsetWidth; // Use the container's width for initial position
-let tickerPaused = false; // A flag to determine if the ticker is paused
+let position = container.offsetWidth; 
+let tickerPaused = false; 
 
 function scrollTicker() {
   if (!tickerPaused) {
     position--;
-    // Reset position based on the container's width
     if (position < -tickerContainer.offsetWidth) {
       position = container.offsetWidth;
     }
@@ -615,7 +607,7 @@ function calculateResult() {
 
   const discountAmount = amount * discountRate;
   const customerPays = amount - discountAmount;
-  const staffEarns = amount * staffIncentiveRate;
+  const staffEarns = customerPays * staffIncentiveRate
 
   const customerTypeText = document.getElementById('customerType').options[document.getElementById('customerType').selectedIndex].text;
   const debtYearText = document.getElementById('debtYear').options[document.getElementById('debtYear').selectedIndex].text;
@@ -635,9 +627,6 @@ function calculateResult() {
   result.classList.add('show');
 }
 
-
-
-// Placeholder color logic
 function updatePlaceholderColor(select) {
   if (select.value === "") {
     select.classList.add("placeholder-red");
@@ -659,21 +648,17 @@ document.addEventListener("DOMContentLoaded", function () {
   const debtAmountInput = document.getElementById("debtAmount");
   const result = document.getElementById("result");
 
-  // Attach change listener to selects
   selects.forEach(select => {
-    updatePlaceholderColor(select); // Initial state
+    updatePlaceholderColor(select); 
     select.addEventListener("change", function () {
       updatePlaceholderColor(select);
     });
   });
 
-  // Input placeholder color for number input
   updateInputPlaceholderColor(debtAmountInput);
   debtAmountInput.addEventListener("input", function () {
     updateInputPlaceholderColor(debtAmountInput);
   });
-
-  // Reset button logic
   document.getElementById('btnRefreshDp').addEventListener('click', function () {
     document.getElementById('debtAmount').value = '';
     document.getElementById('customerType').selectedIndex = 0;
