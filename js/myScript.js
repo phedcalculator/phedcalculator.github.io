@@ -491,21 +491,21 @@ const formattedDate = formatDate(currentDate); // "21st May, 2024"
 
 
 const news = `&nbsp Electricity Tariff as at <span class="brown-text">${formattedDate}</span> &nbsp | &nbsp
-  Band A-Non MD - <span class="green-text">₦${tariffs['Band A-Non MD']}kWh</span> &nbsp &nbsp
-  Band A-MD1 - <span class="green-text">₦${tariffs['Band A-MD1']}kWh</span> &nbsp &nbsp
-  Band A-MD2 - <span class="green-text">₦${tariffs['Band A-MD2']}kWh</span> &nbsp &nbsp
-  Band B-Non MD- <span class="green-text">₦${tariffs['Band B-Non MD']}</span>  &nbsp &nbsp
-  Band B-MD1- <span class="green-text">₦${tariffs['Band B-MD1']}</span>  &nbsp &nbsp
-  Band B-MD2 <span class="green-text">₦${tariffs['Band B-MD2']}</span>  &nbsp &nbsp
-  Band C-Non MD - <span class="green-text">₦${tariffs['Band C-Non MD']}</span> &nbsp &nbsp   
-  Band C-MD1- <span class="green-text">₦${tariffs['Band C-MD1']}</span> &nbsp &nbsp   
-  Band C-MD2 - <span class="green-text">₦${tariffs['Band C-MD2']}</span> &nbsp &nbsp   
-  Band D-Non MD - <span class="green-text">₦${tariffs['Band D-Non MD']}</span>  &nbsp &nbsp
-  Band D-MD1 - <span class="green-text">₦${tariffs['Band D-MD1']}</span>  &nbsp &nbsp
-  Band D-MD2 - <span class="green-text">₦${tariffs['Band D-MD2']}</span>  &nbsp &nbsp
-  Band E-Non MD - <span class="green-text">₦${tariffs['Band E-Non MD']}</span> &nbsp &nbsp | &nbsp 
-  Band E-MD1 - <span class="green-text">₦${tariffs['Band E-MD1']}</span> &nbsp &nbsp | &nbsp 
-  Band E-MD2 - <span class="green-text">₦${tariffs['Band E-MD2']}</span> &nbsp &nbsp | &nbsp 
+  Band A-Non MD <span class="green-text">₦${tariffs['Band A-Non MD']}/kWh</span> &nbsp &nbsp
+  Band A-MD1 <span class="green-text">₦${tariffs['Band A-MD1']}/kWh</span> &nbsp &nbsp
+  Band A-MD2 <span class="green-text">₦${tariffs['Band A-MD2']}/kWh</span> &nbsp &nbsp
+  Band B-Non MD <span class="green-text">₦${tariffs['Band B-Non MD']}/kWh</span>  &nbsp &nbsp
+  Band B-MD1 <span class="green-text">₦${tariffs['Band B-MD1']}/kWh</span>  &nbsp &nbsp
+  Band B-MD2 <span class="green-text">₦${tariffs['Band B-MD2']}/kWh</span>  &nbsp &nbsp
+  Band C-Non MD <span class="green-text">₦${tariffs['Band C-Non MD']}/kWh</span> &nbsp &nbsp   
+  Band C-MD1 <span class="green-text">₦${tariffs['Band C-MD1']}/kWh</span> &nbsp &nbsp   
+  Band C-MD2 <span class="green-text">₦${tariffs['Band C-MD2']}/kWh</span> &nbsp &nbsp   
+  Band D-Non MD <span class="green-text">₦${tariffs['Band D-Non MD']}/kWh</span>  &nbsp &nbsp
+  Band D-MD1 <span class="green-text">₦${tariffs['Band D-MD1']}/kWh</span>  &nbsp &nbsp
+  Band D-MD2 <span class="green-text">₦${tariffs['Band D-MD2']}/kWh</span>  &nbsp &nbsp
+  Band E-Non MD <span class="green-text">₦${tariffs['Band E-Non MD']}/kWh</span> &nbsp &nbsp | &nbsp 
+  Band E-MD1 <span class="green-text">₦${tariffs['Band E-MD1']}/kWh</span> &nbsp &nbsp | &nbsp 
+  Band E-MD2 <span class="green-text">₦${tariffs['Band E-MD2']}/kWh</span> &nbsp &nbsp | &nbsp 
   Designed by: Obot Akpan &nbsp`;
 
 // Select the container div by its class
