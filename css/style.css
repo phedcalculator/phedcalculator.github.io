@@ -61,6 +61,9 @@ html {
 .brown-text {
   color: brown;
 }
+.ticker-text {
+  font-size: 30px;
+}
 .form-container .btn-primary, .output .btn-primary .toggleButton {
   background-color: #008ECC;
   outline: none !important;
@@ -548,6 +551,9 @@ input, label {
   .btn2 {
     font-size: 24px !important;
   }
+	.ticker-text {
+  font-size: 22px;
+}
   .logo-txt h2 {
     font-size: 25px
   }
@@ -663,22 +669,6 @@ input, label {
     height: 30px;
     font-size: 16px;
   }
-  /*
-  #marquee-cont {
-    position: sticky;
-    bottom: 0px;
-    left: 0px;
-    width: 100%;
-    text-align: center;
-    font-size: 16px
-  }
-*/
-  /*
-  table img {
-    width: 80px;
-    height: auto;
-  }
-*/
   .pcss3t > ul {
     width: 100%;
     margin-top: 8px;
