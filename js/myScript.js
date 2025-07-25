@@ -306,12 +306,13 @@ function doCalc() {
    let x = parseFloat(document.querySelector("#red").value);
    let y = parseFloat(document.querySelector("#yellow").value);
    let z = parseFloat(document.querySelector("#blue").value);
+	let n = parseFloat(document.querySelector("#neutral").value);
    const outputLoad = document.querySelector("#outputLoading");
    const capacity = document.querySelector("#inputKVA");
 	
 //  const refresh3 = document.getElementById("btnRefresh3");
-
-   let loading = ((Math.max(x, y, z) / (capacity.value * 1.4)) * 100);
+   let avgCurrent1 = (x + y + z + n) / 3;
+let loading = (avgCurrent1 / (capacity.value * 1.4)) * 100;
 
    loading = loading || 0;
 	if(loading === 0) {
@@ -335,12 +336,12 @@ document.getElementById("btnStart3").addEventListener('click', doMath);
    let xx = parseFloat(document.querySelector("#red").value);
    let yy = parseFloat(document.querySelector("#yellow").value);
    let zz = parseFloat(document.querySelector("#blue").value);
-//   let nn = parseFloat(document.querySelector("#neutral").value);
+   let nn = parseFloat(document.querySelector("#neutral").value);
 	
 		
 		function calculatePercentageImbalance(xx, yy, zz) {
     // Calculate the average current
-    let avgCurrent = (xx + yy + zz) / 3;
+    let avgCurrent = (xx + yy + zz + nn) / 3;
 
     // Calculate the deviations
     let redDeviation = Math.abs(xx - avgCurrent);
