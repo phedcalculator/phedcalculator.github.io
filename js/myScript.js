@@ -505,7 +505,6 @@ scrollTicker();
 
 
 document.addEventListener("DOMContentLoaded", function () {
-  // Elements
   const tab3 = document.getElementById("tab3");
   const tab4 = document.getElementById("tab4");
   const debtTab = document.querySelector(".debtTab");
@@ -523,19 +522,20 @@ document.addEventListener("DOMContentLoaded", function () {
   let customerName = "";
   let customerAccount = "";
 
-  // Dynamically create the export button
   const exportBtn = document.createElement("button");
   exportBtn.id = "btnExportPdf";
-  exportBtn.style.marginTop = "15px";
-  exportBtn.style.padding = "10px 20px";
-  exportBtn.style.backgroundColor = "#808000";
-  exportBtn.style.color = "white";
-  exportBtn.style.border = "none";
-  exportBtn.style.borderRadius = "6px";
-  exportBtn.style.fontSize = "15px";
-  exportBtn.style.cursor = "pointer";
-  exportBtn.style.display = "none";
   exportBtn.textContent = "📄 Export to PDF";
+  Object.assign(exportBtn.style, {
+    marginTop: "15px",
+    padding: "10px 20px",
+    backgroundColor: "#808000",
+    color: "white",
+    border: "none",
+    borderRadius: "6px",
+    fontSize: "15px",
+    cursor: "pointer",
+    display: "none"
+  });
   exportContainer.insertAdjacentElement("afterend", exportBtn);
 
   function updateUI() {
@@ -639,39 +639,66 @@ document.addEventListener("DOMContentLoaded", function () {
   function calculateResult(forExport = false) {
     const amount = parseFloat(debtAmountInput.value);
     const customerType = document.getElementById("customerType").value;
-    const debtYear = document.getElementById("debtYear").value;
+    const yearValue = document.getElementById("debtYear").value;
     const paymentOption = document.getElementById("paymentOption").value;
 
-    if (isNaN(amount) || amount <= 0) {
-      result.innerHTML = "⚠️ Please enter a valid debt amount.";
+    // ✅ Check one missing field at a time
+    if (customerType === "") {
+      result.innerHTML = "❌ Please select a Customer Type.";
+      result.classList.add("show");
       exportBtn.style.display = "none";
       return;
     }
 
-    if (!customerType || !debtYear || !paymentOption) {
-      result.innerHTML = "⚠️ Please select all required fields.";
+    if (yearValue === "") {
+      result.innerHTML = "❌ Please select a Debt Year.";
+      result.classList.add("show");
       exportBtn.style.display = "none";
       return;
     }
 
-    // Determine discount & staff incentive
+    if (paymentOption === "") {
+      result.innerHTML = "❌ Please select a Payment Option.";
+      result.classList.add("show");
+      exportBtn.style.display = "none";
+      return;
+    }
+
+    const minAmount = customerType === 'bulk' ? 500000 : 100000;
+
+    if (isNaN(amount)) {
+      result.innerHTML = "❌ Please enter a valid debt amount.";
+      result.classList.add("show");
+      exportBtn.style.display = "none";
+      return;
+    }
+
+    if (amount < minAmount) {
+      result.innerHTML = `❌ Amount must be at least ₦${minAmount.toLocaleString()} for selected customer type.`;
+      result.classList.add("show");
+      exportBtn.style.display = "none";
+      return;
+    }
+
+    // ✅ Determine discount and incentive
     let discountRate = 0;
     let staffIncentiveRate = 0;
 
-    if (debtYear === "cumulative") {
+    if (yearValue === "cumulative") {
       staffIncentiveRate = 0.025;
       discountRate = paymentOption === "oneOff" ? 0.12 : 0.07;
-    } else if (debtYear === "2025") {
+    } else if (yearValue === "2025") {
       staffIncentiveRate = 0.025;
       discountRate = paymentOption === "oneOff" ? 0.10 : 0.05;
-    } else if (debtYear === "2024") {
+    } else if (yearValue === "2024") {
       staffIncentiveRate = 0.05;
       discountRate = paymentOption === "oneOff" ? 0.20 : 0.15;
-    } else if (debtYear === "before2024") {
+    } else if (yearValue === "before2024") {
       staffIncentiveRate = 0.10;
       discountRate = paymentOption === "oneOff" ? 0.25 : 0.20;
     } else {
       result.innerHTML = "❌ No discount available for selected options.";
+      result.classList.add("show");
       exportBtn.style.display = "none";
       return;
     }
@@ -681,7 +708,7 @@ document.addEventListener("DOMContentLoaded", function () {
     const staffEarns = customerPays * staffIncentiveRate;
 
     const customerTypeText = customerType === "regular" ? "Regular Customer" : "Unmetered MD/CBB";
-    const debtYearText = debtYear === "before2024" ? "Before 2024" : (debtYear === "cumulative" ? "Cumulative" : debtYear);
+    const debtYearText = yearValue === "before2024" ? "Before 2024" : (yearValue === "cumulative" ? "Cumulative" : yearValue);
 
     result.innerHTML = `
       <h1 style="text-align:center; font-weight:bold; font-size:22px">Debt Discount Payment Slip</h1>
@@ -702,65 +729,50 @@ document.addEventListener("DOMContentLoaded", function () {
     exportBtn.style.display = "inline-block";
   }
 
-  // ✅ Export PDF Button - fixed to export visible content
-	
-	
-exportBtn.addEventListener("click", async function () {
+  exportBtn.addEventListener("click", async function () {
     const resultElement = document.getElementById("result");
-    
     if (!resultElement || !resultElement.innerHTML.trim()) {
-        alert("⚠️ Please calculate results before exporting.");
-        return;
+      alert("⚠️ Please calculate results before exporting.");
+      return;
     }
 
-    // Create a clone to prevent UI flickering during export
     const element = resultElement.cloneNode(true);
     element.style.width = "100%";
     element.style.padding = "20px";
-    
-    // Remove the "Staff Incentive" row from the clone before exporting
-    const rows = element.querySelectorAll("tr");
-    rows.forEach(row => {
-        if (row.textContent.includes("Staff Incentive")) {
-            row.remove();
-        }
+
+    element.querySelectorAll("tr").forEach(row => {
+      if (row.textContent.includes("Staff Incentive")) row.remove();
     });
 
     document.body.appendChild(element);
-    
-    try {
-        const opt = {
-            margin: 10,
-            filename: `Discount_Result_${customerAccount || "unknown"}_${new Date().toISOString().slice(0, 10)}.pdf`,
-            image: { type: 'jpeg', quality: 1 },
-            html2canvas: { 
-                scale: 2,
-                logging: true,
-                scrollX: 0,
-                scrollY: 0,
-                useCORS: true,
-                allowTaint: true
-            },
-            jsPDF: { 
-                unit: 'mm',
-                format: 'a5',
-                orientation: 'portrait'
-            }
-        };
 
-        console.log("Starting PDF generation...");
-        await html2pdf().set(opt).from(element).save();
-        console.log("PDF generated successfully");
+    try {
+      await html2pdf().set({
+        margin: 10,
+        filename: `Discount_Result_${customerAccount || "unknown"}_${new Date().toISOString().slice(0, 10)}.pdf`,
+        image: { type: 'jpeg', quality: 1 },
+        html2canvas: {
+          scale: 2,
+          logging: true,
+          scrollX: 0,
+          scrollY: 0,
+          useCORS: true,
+          allowTaint: true
+        },
+        jsPDF: {
+          unit: 'mm',
+          format: 'a5',
+          orientation: 'portrait'
+        }
+      }).from(element).save();
     } catch (error) {
-        console.error("PDF generation failed:", error);
-        alert("Failed to generate PDF: " + error.message);
+      console.error("PDF generation failed:", error);
+      alert("Failed to generate PDF: " + error.message);
     } finally {
-        // Clean up
-        document.body.removeChild(element);
+      document.body.removeChild(element);
     }
-});
-	
-  // Placeholder helpers
+  });
+
   function updatePlaceholderColor(select) {
     select.classList.toggle("placeholder-red", select.value === "");
   }
@@ -779,3 +791,5 @@ exportBtn.addEventListener("click", async function () {
     debtAmountInput.addEventListener("input", () => updateInputPlaceholderColor(debtAmountInput));
   }
 });
+
+  
