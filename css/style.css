@@ -342,6 +342,7 @@ appearance: none
 }
 
 #result { 
+	text-align: center;
 	width: 100%;
 	margin-top: 20px; 
 	font-weight: bold; 
