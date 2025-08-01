@@ -439,21 +439,21 @@ const formattedDate = formatDate(currentDate); // "21st May, 2024"
 
 
 const news = `<span class="ticker-text">&nbsp Electricity Tariff as at <span class="brown-text">${formattedDate}</span> &nbsp | &nbsp
-  Band A-Non MD <span class="green-text">₦${tariffs['Band A-Non MD']}/kWh</span> &nbsp &nbsp
-  Band A-MD1 <span class="green-text">₦${tariffs['Band A-MD1']}/kWh</span> &nbsp &nbsp
-  Band A-MD2 <span class="green-text">₦${tariffs['Band A-MD2']}/kWh</span> &nbsp &nbsp
-  Band B-Non MD <span class="green-text">₦${tariffs['Band B-Non MD']}/kWh</span>  &nbsp &nbsp
-  Band B-MD1 <span class="green-text">₦${tariffs['Band B-MD1']}/kWh</span>  &nbsp &nbsp
-  Band B-MD2 <span class="green-text">₦${tariffs['Band B-MD2']}/kWh</span>  &nbsp &nbsp
-  Band C-Non MD <span class="green-text">₦${tariffs['Band C-Non MD']}/kWh</span> &nbsp &nbsp   
-  Band C-MD1 <span class="green-text">₦${tariffs['Band C-MD1']}/kWh</span> &nbsp &nbsp   
-  Band C-MD2 <span class="green-text">₦${tariffs['Band C-MD2']}/kWh</span> &nbsp &nbsp   
-  Band D-Non MD <span class="green-text">₦${tariffs['Band D-Non MD']}/kWh</span>  &nbsp &nbsp
-  Band D-MD1 <span class="green-text">₦${tariffs['Band D-MD1']}/kWh</span>  &nbsp &nbsp
-  Band D-MD2 <span class="green-text">₦${tariffs['Band D-MD2']}/kWh</span>  &nbsp &nbsp
-  Band E-Non MD <span class="green-text">₦${tariffs['Band E-Non MD']}/kWh</span> &nbsp &nbsp | &nbsp 
-  Band E-MD1 <span class="green-text">₦${tariffs['Band E-MD1']}/kWh</span> &nbsp &nbsp | &nbsp 
-  Band E-MD2 <span class="green-text">₦${tariffs['Band E-MD2']}/kWh</span> &nbsp &nbsp | &nbsp 
+  Band A-Non MD <span class="green-text">â‚¦${tariffs['Band A-Non MD']}/kWh</span> &nbsp &nbsp
+  Band A-MD1 <span class="green-text">â‚¦${tariffs['Band A-MD1']}/kWh</span> &nbsp &nbsp
+  Band A-MD2 <span class="green-text">â‚¦${tariffs['Band A-MD2']}/kWh</span> &nbsp &nbsp
+  Band B-Non MD <span class="green-text">â‚¦${tariffs['Band B-Non MD']}/kWh</span>  &nbsp &nbsp
+  Band B-MD1 <span class="green-text">â‚¦${tariffs['Band B-MD1']}/kWh</span>  &nbsp &nbsp
+  Band B-MD2 <span class="green-text">â‚¦${tariffs['Band B-MD2']}/kWh</span>  &nbsp &nbsp
+  Band C-Non MD <span class="green-text">â‚¦${tariffs['Band C-Non MD']}/kWh</span> &nbsp &nbsp   
+  Band C-MD1 <span class="green-text">â‚¦${tariffs['Band C-MD1']}/kWh</span> &nbsp &nbsp   
+  Band C-MD2 <span class="green-text">â‚¦${tariffs['Band C-MD2']}/kWh</span> &nbsp &nbsp   
+  Band D-Non MD <span class="green-text">â‚¦${tariffs['Band D-Non MD']}/kWh</span>  &nbsp &nbsp
+  Band D-MD1 <span class="green-text">â‚¦${tariffs['Band D-MD1']}/kWh</span>  &nbsp &nbsp
+  Band D-MD2 <span class="green-text">â‚¦${tariffs['Band D-MD2']}/kWh</span>  &nbsp &nbsp
+  Band E-Non MD <span class="green-text">â‚¦${tariffs['Band E-Non MD']}/kWh</span> &nbsp &nbsp | &nbsp 
+  Band E-MD1 <span class="green-text">â‚¦${tariffs['Band E-MD1']}/kWh</span> &nbsp &nbsp | &nbsp 
+  Band E-MD2 <span class="green-text">â‚¦${tariffs['Band E-MD2']}/kWh</span> &nbsp &nbsp | &nbsp 
   Designed by: Obot Akpan &nbsp</span>`;
 
 // Select the container div by its class
@@ -524,7 +524,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
   const exportBtn = document.createElement("button");
   exportBtn.id = "btnExportPdf";
-  exportBtn.textContent = "📄 Export to PDF";
+  exportBtn.textContent = "ðŸ“„ Export to PDF";
   Object.assign(exportBtn.style, {
     marginTop: "15px",
     padding: "10px 20px",
@@ -574,11 +574,11 @@ document.addEventListener("DOMContentLoaded", function () {
     customerAccount = "";
 
     if (!acct) {
-      fetchStatus.innerHTML = "⚠️ Please enter an account number.";
+      fetchStatus.innerHTML = "âš ï¸ Please enter an account number.";
       return;
     }
 
-    fetchStatus.innerHTML = "🔄 Checking account...";
+    fetchStatus.innerHTML = "ðŸ”„ Checking account...";
 
     try {
       const response = await fetch("https://phedfeeders.github.io/customers.json");
@@ -592,15 +592,15 @@ document.addEventListener("DOMContentLoaded", function () {
         customerName = customer.name;
         customerAccount = customer.accountNumber;
 
-        fetchStatus.innerHTML = `<strong>✔️ Customer Name: ${customerName} <br> ✔️ Total Debt: ₦${customer.debtAmount.toLocaleString()}</strong>`;
+        fetchStatus.innerHTML = `<strong>âœ”ï¸ Customer Name: ${customerName} <br> âœ”ï¸ Total Debt: â‚¦${customer.debtAmount.toLocaleString()}</strong>`;
         debtAmountInput.value = customer.debtAmount;
         updateInputPlaceholderColor(debtAmountInput);
       } else {
-        fetchStatus.innerHTML = "❌ Customer not found.";
+        fetchStatus.innerHTML = "âŒ Customer not found.";
       }
     } catch (err) {
       console.error(err);
-      fetchStatus.innerHTML = "❌ Error contacting the database.";
+      fetchStatus.innerHTML = "âŒ Error contacting the database.";
     }
   });
 
@@ -642,23 +642,23 @@ document.addEventListener("DOMContentLoaded", function () {
     const yearValue = document.getElementById("debtYear").value;
     const paymentOption = document.getElementById("paymentOption").value;
 
-    // ✅ Check one missing field at a time
+    // âœ… Check one missing field at a time
     if (customerType === "") {
-      result.innerHTML = "❌ Please select a Customer Type.";
+      result.innerHTML = "âŒ Please select a Customer Type.";
       result.classList.add("show");
       exportBtn.style.display = "none";
       return;
     }
 
     if (yearValue === "") {
-      result.innerHTML = "❌ Please select a Debt Year.";
+      result.innerHTML = "âŒ Please select a Debt Year.";
       result.classList.add("show");
       exportBtn.style.display = "none";
       return;
     }
 
     if (paymentOption === "") {
-      result.innerHTML = "❌ Please select a Payment Option.";
+      result.innerHTML = "âŒ Please select a Payment Option.";
       result.classList.add("show");
       exportBtn.style.display = "none";
       return;
@@ -667,20 +667,20 @@ document.addEventListener("DOMContentLoaded", function () {
     const minAmount = customerType === 'bulk' ? 500000 : 100000;
 
     if (isNaN(amount)) {
-      result.innerHTML = "❌ Please enter a valid debt amount.";
+      result.innerHTML = "âŒ Please enter a valid debt amount.";
       result.classList.add("show");
       exportBtn.style.display = "none";
       return;
     }
 
     if (amount < minAmount) {
-      result.innerHTML = `❌ Amount must be at least ₦${minAmount.toLocaleString()} for selected customer type.`;
+      result.innerHTML = `âŒ Amount must be at least â‚¦${minAmount.toLocaleString()} for selected customer type.`;
       result.classList.add("show");
       exportBtn.style.display = "none";
       return;
     }
 
-    // ✅ Determine discount and incentive
+    // âœ… Determine discount and incentive
     let discountRate = 0;
     let staffIncentiveRate = 0;
 
@@ -697,7 +697,7 @@ document.addEventListener("DOMContentLoaded", function () {
       staffIncentiveRate = 0.10;
       discountRate = paymentOption === "oneOff" ? 0.25 : 0.20;
     } else {
-      result.innerHTML = "❌ No discount available for selected options.";
+      result.innerHTML = "âŒ No discount available for selected options.";
       result.classList.add("show");
       exportBtn.style.display = "none";
       return;
@@ -732,7 +732,7 @@ document.addEventListener("DOMContentLoaded", function () {
   exportBtn.addEventListener("click", async function () {
     const resultElement = document.getElementById("result");
     if (!resultElement || !resultElement.innerHTML.trim()) {
-      alert("⚠️ Please calculate results before exporting.");
+      alert("âš ï¸ Please calculate results before exporting.");
       return;
     }
 
