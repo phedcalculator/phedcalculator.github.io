@@ -506,6 +506,14 @@ input, label {
   -webkit-transform: scale(1, 1);
   -webkit-transform: rotate(0deg);
 }
+.pcss3t > .tab-content-5:checked ~ ul .tab-content-5, .pcss3t > .tab-content-6:checked ~ ul .tab-content-6 {
+  /*	z-index: 1;*/
+  top: 0;
+  left: 0;
+  opacity: 1;
+  -webkit-transform: scale(1, 1);
+  -webkit-transform: rotate(0deg);
+}
 
 
 
@@ -521,6 +529,9 @@ input, label {
 */
 
 .pcss3t-height-auto > .tab-content-3:checked ~ ul .tab-content-3, .pcss3t-height-auto > .tab-content-4:checked ~ ul .tab-content-4 {
+  display: block;
+}
+.pcss3t-height-auto > .tab-content-5:checked ~ ul .tab-content-5, .pcss3t-height-auto > .tab-content-6:checked ~ ul .tab-content-6 {
   display: block;
 }
 
@@ -647,8 +658,24 @@ input, label {
 	height: 6vh
 
 }
+#adjustContainer{
+/*  margin-top: 10px;*/
+  display: none;
+  width: 80vw;
+/*  background-color: red;*/
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  padding: 5px 0px;
+  margin-left: auto;
+  margin-right: auto;
+}
 
 @media screen and (min-width: 800px) {
+	
+	#adjustContainer{
+  width: 60%;
+	}
 	
 	.fetchDiv input{
 	width: 80%;
@@ -668,7 +695,7 @@ input, label {
   }
 
   .select-input {
-    font-size: 15px !important;
+    font-size: 18px !important;
     /*  padding: 30px;*/
   }
   .btn2 {
