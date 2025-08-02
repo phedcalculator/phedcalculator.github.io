@@ -148,8 +148,13 @@ function calculate(e) {
   // Calculate the average current if phase values are provided
   let avg = (Number(a.value) + Number(b.value) + Number(c.value) + Number(neutral.value)) / 3;
   
-  // Check if any of the phase values are provided
-  let isAvgProvided = a.value || b.value || c.value || neutral.value;
+  // Check if all the phase values are provided
+  let isAvgProvided = 
+   a.value !== "" && b.value !== "" && c.value !== "" && neutral.value !== "" &&
+  !isNaN(Number(a.value)) &&
+  !isNaN(Number(b.value)) &&
+  !isNaN(Number(c.value)) &&
+  !isNaN(Number(neutral.value));
   
   // Use 0.415 x root 3 if avg is provided, otherwise use 0.240
   let multiplier = isAvgProvided ? 0.719 : 0.240;
@@ -244,46 +249,36 @@ const lorN = document.getElementById("lorNAmp");
 function calcLorRPD(e) {
   e.preventDefault();
 	
-	  // Calculate the average current if phase values are provided
-  let avg = (Number(lorR.value) + Number(lorY.value) + Number(lorB.value) + Number(lorN.value)) / 3;
+	// Calculate the average current if phase values are provided
+  let LorAvg = (Number(lorR.value) + Number(lorY.value) + Number(lorB.value) + Number(lorN.value)) / 3;
   
-  // Check if any of the phase values are provided
-  let isAvgProvided = lorR.value || lorY.value || lorB.value || lorN.value;
+  // Check if all the phase values are provided
+let isLorAvgProvided =
+  lorR.value !== "" && lorY.value !== "" && lorB.value !== "" && lorN.value !== "" &&
+  !isNaN(Number(lorR.value)) &&
+  !isNaN(Number(lorY.value)) &&
+  !isNaN(Number(lorB.value)) &&
+  !isNaN(Number(lorN.value));
   
   // Use 0.415 x root 3 if avg is provided, otherwise use 0.240
-  let multiplier = isAvgProvided ? 0.719 : 0.240;
+  let LorMultiplier = isLorAvgProvided ? 0.719 : 0.240;
   
   // Get the selected band and category
   let selectedBand = Band1.options[Band1.selectedIndex].text;
   
   // Calculate total cost based on whether avg or loadAmps.value is used
   let totalLOR;
-  if (isAvgProvided) {
-    totalLOR = avg * Number(duration.value) * Number(Band1.value) * tariffs[selectedBand] * 0.400 * 0.6 * 0.85 * 1.075;
+  if (isLorAvgProvided) {
+    totalLOR = LorAvg * Number(duration.value) * Number(Band1.value) * tariffs[selectedBand] * LorMultiplier * 0.6 * 0.85 * 1.075;
   } else {
-    totalLOR = Number(lorSingle.value) * Number(Band1.value) * tariffs[selectedBand] * multiplier * 0.85 * 0.6 * 1.075;
+    totalLOR = Number(lorSingle.value) * Number(duration.value) * Number(Band1.value) * tariffs[selectedBand] * LorMultiplier * 0.85 * 0.6 * 1.075;
   }
 	
-	
-//	 let kWh;
-//  if (isAvgProvided) {
-//    kWh = avg * Number(Band.value) * multiplier * 0.6 * 0.85;
-//  } else {
-//    kWh = Number(loadAmps.value) * Number(Band.value) * multiplier * 0.6 * 0.85;
-//  }
-//	totalCost = totalCost || 0;
-//	outputkWh.innerHTML = "Your bill for " + kWh.toFixed(1) + "kWh consumption is:";
-//	
-	
-	
-	
-	
-	
   let kWh;
-  if (isAvgProvided) {
-    kWh = avg * Number(duration.value) * Number(Band1.value) * tariffs[selectedBand] * 0.220 * 0.6 * 0.85 * 1.075;
+  if (isLorAvgProvided) {
+    kWh = LorAvg * Number(duration.value) * Number(Band1.value) * LorMultiplier * 0.6 * 0.85;
   } else {
-    kWh = Number(lorSingle.value) * Number(duration.value) * Number(Band1.value) * tariffs[selectedBand] * 0.220 * 0.6 * 0.85 * 1.075;
+    kWh = Number(lorSingle.value) * Number(duration.value) * Number(Band1.value) * LorMultiplier * 0.6 * 0.85 ;
   }
 	totalLOR = totalLOR || 0;
 	outputLorkWh.innerHTML = "Your LOR for " + kWh.toFixed(1) + "kWh consumption is:";
@@ -764,3 +759,4 @@ document.addEventListener("DOMContentLoaded", function () {
     debtAmountInput.addEventListener("input", () => updateInputPlaceholderColor(debtAmountInput));
   }
 });
+
