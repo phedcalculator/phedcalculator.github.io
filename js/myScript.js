@@ -1,6 +1,7 @@
 // JavaScript Document
 
 const tariffs = {
+  'Bilateral': 231,
   'Band A-Non MD': 209.5, 
   'Band A-MD1': 209.5, 
   'Band A-MD2': 209.5, 
@@ -759,4 +760,5 @@ document.addEventListener("DOMContentLoaded", function () {
     debtAmountInput.addEventListener("input", () => updateInputPlaceholderColor(debtAmountInput));
   }
 });
+
 
